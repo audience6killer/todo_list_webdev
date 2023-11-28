@@ -1,4 +1,5 @@
 from flask_sqlalchemy import SQLAlchemy
+from datetime import datetime
 
 db = SQLAlchemy()
 
@@ -13,13 +14,17 @@ class ToDo(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(500), nullable=False)
-    datetime = db.Column(db.DateTime, nullable=True)
-    status = db.Column(db.Boolean, nullable=False)
+    date = db.Column(db.DateTime, default=datetime.utcnow)
+    status = db.Column(db.Boolean, nullable=False)  # True: Active, False: Compleated
     # Relationships
     tags = db.relationship('Tag', secondary=todo_tag, backref='todos')
 
+    def __init__(self, name, status):
+        self.name = name
+        self.status = status
 
-class Tags(db.Model):
+
+class Tag(db.Model):
     __tablename__ = "tag"
 
     id = db.Column(db.Integer, primary_key=True)

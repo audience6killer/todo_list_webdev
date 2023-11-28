@@ -415,5 +415,22 @@
   --bs-navbar-toggler-border-color: rgba(255, 255, 255, 0.1);
   --bs-navbar-toggler-icon-bg: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255, 255, 255, 0.55%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
 }
-
+header.masthead .page-heading,
+header.masthead .site-heading {
+  text-align: center;
+}
+header.masthead .page-heading h3, header.masthead .page-heading .h3,
+header.masthead .site-heading h3,
+header.masthead .site-heading .h3 {
+  font-size: 3rem;
+}
+.custom-textarea {
+  font-weight: 300;
+  height: 100px; /* Set a fixed height for the textarea */
+  resize: none; /* Prevent resizing */
+  padding: 10px; /* Adjust padding as needed */
+  line-height: 100px; /* Set line height equal to the height */
+  vertical-align: middle; /* Attempt at vertical alignment */
+  text-align: left; /* Center text horizontally */
+}
 
