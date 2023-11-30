@@ -433,4 +433,26 @@ header.masthead .site-heading .h3 {
   vertical-align: middle; /* Attempt at vertical alignment */
   text-align: left; /* Center text horizontally */
 }
+th, td{
+    text-align: center;
+}
+
+.zoom {
+  transition: transform .2s; /* Animation */
+  margin: 0 auto;
+}
+
+.zoom:hover {
+  transform: scale(1.5); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
+}
+.zoom_less {
+  transition: transform .2s; /* Animation */
+  margin: 0 auto;
+}
+
+.zoom_less:hover {
+  transform: scale(1.1); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
+}
+
+
 

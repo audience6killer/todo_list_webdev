@@ -8,13 +8,14 @@
         <div class="row gx-4 gx-lg-5 justify-content-center">
             <div class="col-md-10 col-lg-8 col-xl-7">
                 <div class="site-heading">
-                    <h3>To-Do List</h3>
+                    <h3>{% block title %}To-Do List{% endblock %}</h3>
                 </div>
             </div>
         </div>
     </div>
 </header>
 
+{% block page_top %}
 <div class="container px-4 px-lg-5">
     <div class="row gx-4 gx-lg-5 justify-content-center">
         <div class="col-md-10 col-lg-10 col-xl-10">
@@ -30,7 +31,9 @@
                             name="new_task"
                             style="font-size: 4rem;"
                             aria-label="Task input"
-                            rows="1"></textarea>
+                            rows="1"
+                            maxlength="60"
+                    ></textarea>
                     <button
                       class="btn btn-outline-secondary"
                       id="submitButton"
@@ -43,5 +46,120 @@
         </div>
     </div>
 </div>
+{% endblock %}
+
+{% block contents %}
+{% if active_tasks %}
+<div class="container text-center position-relative px-4 px-lg-4">
+    <div class="row gx-4 gx-lg-5 justify-content-center">
+        <div class="col-md-10 col-lg-6">
+            <div class="py-3 py-lg-3" style="font-size: 3rem;">
+                <h2>Active Tasks</h2>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container px-4 px-lg-4 py-4 py-lg-4">
+    <div class="row gx-4 gx-lg-5 justify-content-center">
+        <div class="col-md-10 col-lg-10 col-xl-10">
+            <table class="table align-middle mb-0 bg-white">
+                <thead class="bg-light">
+                    <tr>
+                        <th>Complete</th>
+                        <th>Task</th>
+                        <th>Date</th>
+                        <th>Tags</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for task in active_tasks %}
+                    <tr>
+                        <td>
+                            <a href="{{url_for('complete_task', task_id=task.id)}}">
+                                <i class="fa fa-2x fa-check zoom" aria-hidden="false"></i>
+                            </a>
+                        </td>
+                        <td>
+                            <p>{{task.name}}</p>
+                        </td>
+                        <td>
+                            <p>{{task.date.strftime("%B %d, %Y")}}</p>
+                        </td>
+                        <td>
+                            {%for tag in task.tags %}
+                            <a href="{{url_for('show_tag', tag_name=tag.name)}}">{{tag.name}}</a>&nbsp;
+                            {% endfor %}
+                        </td>
+                        <td>
+                            <button type="button" class="btn btn-link btn-sm btn-rounded">
+                              Edit
+                            </button>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endif %}
+{% if completed_tasks %}
+<div class="container text-center position-relative px-4 px-lg-4">
+    <div class="row gx-4 gx-lg-5 justify-content-center">
+        <div class="col-md-10 col-lg-6 col-xl-6">
+            <div class="py-3 py-lg-3" style="font-size: 3rem;">
+                <h2>Completed Tasks</h2>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container px-4 px-lg-4 py-4 py-lg-4">
+    <div class="row gx-4 gx-lg-5 justify-content-center">
+        <div class="col-md-10 col-lg-10 col-xl-10">
+            <table class="table align-middle mb-0 bg-white">
+                <thead class="bg-light">
+                    <tr>
+                        <th>Delete</th>
+                        <th>Task</th>
+                        <th>Date</th>
+                        <th>Tags</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for task in completed_tasks %}
+                    <tr>
+                        <td>
+                            <a class="btn btn-danger zoom_less"
+                               href="{{url_for('delete_task', task_id=task.id)}}">
+                                <i class="fa-solid fa-trash"></i> Delete</a>
+                        </td>
+                        <td>
+                            <p>{{task.name}}</p>
+                        </td>
+                        <td>
+                            <p>{{task.date.strftime("%B %d, %Y")}}</p>
+                        </td>
+                        <td>
+                            {%for tag in task.tags %}
+                            <a href="{{url_for('show_tag', tag_name=tag.name)}}">{{tag.name}}</a>&nbsp;
+                            {% endfor %}
+                        </td>
+                        <td>
+                            <a href="{{url_for('reactive_task', task_id=task.id)}}">
+                                Reactive</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endif %}
+
+{% endblock %}
+
 
 {% include "footer.html"%}
